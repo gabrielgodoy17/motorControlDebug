@@ -65,7 +65,7 @@ double velocidadPulsos = 0, velocidadRPM = 0, deltaT = 0.01;
 double velocidadPulsos2 = 0, velocidadRPM2 = 0;
 int num_spi=0;
 int indexBuf=0;
-uint8_t out_buffer[40] = {':','w','1','-','2','5',';',':','w','2','-','2','5',';'};
+uint8_t out_buffer[14] = {':','w','1','-','2','5',';',':','w','2','-','2','5',';'};
 
 
 //variables para control
@@ -203,9 +203,10 @@ void interpreteComando(uint8_t *consigna_buffer){
 		case 63:
 			/*Transmit velocidad*/
 			indexBuf=0;
-		   // HAL_SPI_TransmitReceive_IT(&hspi2, &out_buffer[indexBuf], &byte, 1);
+		    //HAL_SPI_TransmitReceive(&hspi2, &out_buffer[indexBuf], &byte, 1);
 		    //HAL__IT(&hspi2, out_buffer, 14);
-		    break;
+		    HAL_SPI_Transmit(&hspi2, out_buffer, 14, 1);
+			break;
 		}
 			break;
 
