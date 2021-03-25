@@ -205,7 +205,7 @@ void interpreteComando(uint8_t *consigna_buffer){
 			indexBuf=0;
 		    //HAL_SPI_TransmitReceive(&hspi2, &out_buffer[indexBuf], &byte, 1);
 		    //HAL__IT(&hspi2, out_buffer, 14);
-		    HAL_SPI_Transmit(&hspi2, out_buffer, 14, 1);
+		    HAL_SPI_Transmit(&hspi2,&out_buffer[0], 14, 100);
 			break;
 		}
 			break;

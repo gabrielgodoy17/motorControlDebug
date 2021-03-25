@@ -1017,7 +1017,7 @@ void interpreteComando(uint8_t *consigna_buffer){
  8000c3c:	d000      	beq.n	8000c40 <interpreteComando+0x104>
 		    //HAL_SPI_TransmitReceive(&hspi2, &out_buffer[indexBuf], &byte, 1);
 		    //HAL__IT(&hspi2, out_buffer, 14);
-		    HAL_SPI_Transmit(&hspi2, out_buffer, 14, 1);
+		    HAL_SPI_Transmit(&hspi2,&out_buffer[0], 14, 100);
 			break;
 		}
 			break;
@@ -1326,8 +1326,8 @@ void interpreteComando(uint8_t *consigna_buffer){
  8000eb2:	4b12      	ldr	r3, [pc, #72]	; (8000efc <interpreteComando+0x3c0>)
  8000eb4:	2200      	movs	r2, #0
  8000eb6:	601a      	str	r2, [r3, #0]
-		    HAL_SPI_Transmit(&hspi2, out_buffer, 14, 1);
- 8000eb8:	2301      	movs	r3, #1
+		    HAL_SPI_Transmit(&hspi2,&out_buffer[0], 14, 100);
+ 8000eb8:	2364      	movs	r3, #100	; 0x64
  8000eba:	220e      	movs	r2, #14
  8000ebc:	4910      	ldr	r1, [pc, #64]	; (8000f00 <interpreteComando+0x3c4>)
  8000ebe:	4811      	ldr	r0, [pc, #68]	; (8000f04 <interpreteComando+0x3c8>)
