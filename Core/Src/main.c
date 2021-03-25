@@ -489,7 +489,6 @@ int main(void) {
 	/* USER CODE BEGIN 2 */
 
 	//HAL_UART_Receive_IT(&huart2, &byte, 1);
-	HAL_SPI_Receive_IT(&hspi2, in_buffer, 17);
 
 	HAL_TIM_Base_Start_IT(&htim1);
 	HAL_TIM_OC_Start_IT(&htim1, TIM_CHANNEL_1);
@@ -528,10 +527,11 @@ int main(void) {
 	while (1) {
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 0);
 		//HAL_SPI_TransmitReceive_IT(&hspi2, out_buffer, in_buffer, 14);
-		HAL_SPI_Transmit(&hspi2, out_buffer, 18, 1);
+		HAL_SPI_Transmit(&hspi2, &out_buffer[0], 18, 100);
 		//HAL_SPI_Receive(&hspi2, in_buffer, 14, 1);
-		HAL_Delay(250);
-		HAL_SPI_Receive_IT(&hspi2, in_buffer, 14);
+		HAL_Delay(10);
+		HAL_SPI_Receive(&hspi2, &in_buffer[0], 14, 100);
+
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
 
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 1);
