@@ -448,7 +448,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef * hspi){
 	    /* Receive one byte in interrupt mode */
 		  //HAL_SPI_TransmitReceive_IT(&hspi2, &out_buffer[indexBuf], &byte, 1);
 //		  HAL_SPI_Receive_IT(&hspi2, &byte, 1);
-		  HAL_SPI_Receive_IT(&hspi2, in_buffer, 17);
+		  HAL_SPI_Receive_IT(&hspi2, in_buffer, 18);
 	  }
 }
 /* USER CODE END 0 */
@@ -489,7 +489,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 	//HAL_UART_Receive_IT(&huart2, &byte, 1);
-  	HAL_SPI_Receive_IT(&hspi2, in_buffer, 17);
+  	HAL_SPI_Receive_IT(&hspi2, in_buffer, 18);
 
 	HAL_TIM_Base_Start_IT(&htim1);
 	HAL_TIM_OC_Start_IT(&htim1, TIM_CHANNEL_1);
