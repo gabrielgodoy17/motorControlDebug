@@ -2465,8 +2465,8 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef * hspi){
 	    /* Receive one byte in interrupt mode */
 		  //HAL_SPI_TransmitReceive_IT(&hspi2, &out_buffer[indexBuf], &byte, 1);
 //		  HAL_SPI_Receive_IT(&hspi2, &byte, 1);
-		  HAL_SPI_Receive_IT(&hspi2, in_buffer, 17);
- 80017de:	2211      	movs	r2, #17
+		  HAL_SPI_Receive_IT(&hspi2, in_buffer, 18);
+ 80017de:	2212      	movs	r2, #18
  80017e0:	4905      	ldr	r1, [pc, #20]	; (80017f8 <HAL_SPI_RxCpltCallback+0xe0>)
  80017e2:	480e      	ldr	r0, [pc, #56]	; (800181c <HAL_SPI_RxCpltCallback+0x104>)
  80017e4:	f001 ff58 	bl	8003698 <HAL_SPI_Receive_IT>
@@ -2532,8 +2532,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 	//HAL_UART_Receive_IT(&huart2, &byte, 1);
-  	HAL_SPI_Receive_IT(&hspi2, in_buffer, 17);
- 8001844:	2211      	movs	r2, #17
+  	HAL_SPI_Receive_IT(&hspi2, in_buffer, 18);
+ 8001844:	2212      	movs	r2, #18
  8001846:	492a      	ldr	r1, [pc, #168]	; (80018f0 <main+0xd0>)
  8001848:	482a      	ldr	r0, [pc, #168]	; (80018f4 <main+0xd4>)
  800184a:	f001 ff25 	bl	8003698 <HAL_SPI_Receive_IT>
