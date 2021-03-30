@@ -56,6 +56,8 @@ uint8_t byte;
 //uint8_t byte,
 uint8_t indRx = 0, flagRx, imprimir = 1, sentido;
 char buffer[MAX_BUFFER];
+uint8_t in_buffer_q;
+uint8_t in_buffer_w;
 uint8_t in_buffer[14];
 
 int contOUFlow = 0, pulsosAnt = 0, pulsosAct = 0;
@@ -64,7 +66,6 @@ double velocidadPulsos = 0, velocidadRPM = 0, deltaT = 0.01;
 double velocidadPulsos2 = 0, velocidadRPM2 = 0;
 int num_spi = 0;
 int indexBuf = 0;
-
 
 //variables para control
 double error_vel_act = 0, error_vel_ant = 0;
@@ -489,7 +490,6 @@ int main(void) {
 	/* USER CODE BEGIN 2 */
 
 	//HAL_UART_Receive_IT(&huart2, &byte, 1);
-
 	HAL_TIM_Base_Start_IT(&htim1);
 	HAL_TIM_OC_Start_IT(&htim1, TIM_CHANNEL_1);
 
@@ -521,18 +521,40 @@ int main(void) {
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-	uint8_t out_buffer[18] = { ':', 'w', '1', '+', '2', '5', ';', ':', 'w', '2','+', '2', '5', ';', ':', 'w', '?', ';' };
+	uint8_t out_buffer[14] = { ':', 'w', '1', '+', '2', '5', ';', ':', 'w', '2','+', '2', '5' ,';'};		// ';', ':', 'w', '?', ';' };
+	uint8_t q1__s_buff[5] = { ':', 'Q', '1', 'S' ,';'};
+	uint8_t q1__w_buff[5] = { ':', 'Q', '1', 'W' ,';'};
+
+//	uint8_t q2__s_buff[4] = { ':', 'Q', '2', 'S' };
+//	uint8_t q2__w_buff[4] = { ':', 'Q', '2', 'W' };
+	double respuesta_velocidad;
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
 
 	while (1) {
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 0);
-		//HAL_SPI_TransmitReceive_IT(&hspi2, out_buffer, in_buffer, 14);
-		HAL_SPI_Transmit(&hspi2, &out_buffer[0], 18, 100);
-		//HAL_SPI_Receive(&hspi2, in_buffer, 14, 1);
-		HAL_Delay(10);
-		HAL_SPI_Receive(&hspi2, &in_buffer[0], 14, 100);
+		respuesta_velocidad=0.0;
+//		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 0);
+//		/*se envia la trama para setear cada velocidad*/
+//		HAL_SPI_Transmit(&hspi2, &out_buffer[0], 14, 100);
+//		//HAL_SPI_Receive(&hspi2, in_buffer, 14, 1);
+//		HAL_Delay(5);
+//		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
+//
+//		HAL_Delay(5);
+//		/*se activa de nuevo el chip select y se envia la pregunta del signo de la velocidad del motor 1*/
+//		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 0);
+//		HAL_SPI_Transmit(&hspi2, &q1__s_buff[0], 5, 100);
+//		HAL_Delay(5);
+//		HAL_SPI_Receive(&hspi2, &in_buffer_q, 1, 100);
+//		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
 
+		/*se activa de nuevo el chip select y se envia la pregunta para la velocidad del motor 1*/
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 0);
+		HAL_SPI_Transmit(&hspi2, &q1__w_buff[0], 5, 100);
+		HAL_Delay(5);
+		HAL_SPI_Receive(&hspi2, &in_buffer_w, 1, 100);
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, 1);
+		respuesta_velocidad = (double) in_buffer_w;
+
 
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 1);
 		HAL_Delay(100);
