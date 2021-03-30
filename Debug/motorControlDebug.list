@@ -2322,7 +2322,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi) {
  8001706:	4a36      	ldr	r2, [pc, #216]	; (80017e0 <HAL_SPI_RxCpltCallback+0xf0>)
  8001708:	4293      	cmp	r3, r2
  800170a:	d162      	bne.n	80017d2 <HAL_SPI_RxCpltCallback+0xe2>
-		for (int i = 0; i < 18; i++) {
+		for (int i = 0; i < 17; i++) {
  800170c:	2300      	movs	r3, #0
  800170e:	60fb      	str	r3, [r7, #12]
  8001710:	e053      	b.n	80017ba <HAL_SPI_RxCpltCallback+0xca>
@@ -2438,12 +2438,12 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi) {
  80017b0:	e000      	b.n	80017b4 <HAL_SPI_RxCpltCallback+0xc4>
 				break;
  80017b2:	bf00      	nop
-		for (int i = 0; i < 18; i++) {
+		for (int i = 0; i < 17; i++) {
  80017b4:	68fb      	ldr	r3, [r7, #12]
  80017b6:	3301      	adds	r3, #1
  80017b8:	60fb      	str	r3, [r7, #12]
  80017ba:	68fb      	ldr	r3, [r7, #12]
- 80017bc:	2b11      	cmp	r3, #17
+ 80017bc:	2b10      	cmp	r3, #16
  80017be:	dda8      	ble.n	8001712 <HAL_SPI_RxCpltCallback+0x22>
 		}
 
@@ -2472,7 +2472,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi) {
  80017dc:	20000290 	.word	0x20000290
  80017e0:	40003800 	.word	0x40003800
  80017e4:	200003c0 	.word	0x200003c0
- 80017e8:	200003d2 	.word	0x200003d2
+ 80017e8:	200003d1 	.word	0x200003d1
  80017ec:	2000024c 	.word	0x2000024c
  80017f0:	20000420 	.word	0x20000420
  80017f4:	20000448 	.word	0x20000448
@@ -2522,8 +2522,8 @@ int main(void) {
 	/* USER CODE BEGIN 2 */
 
 	//HAL_UART_Receive_IT(&huart2, &byte, 1);
-	HAL_SPI_Receive_IT(&hspi2, &in_buffer[0], 18);
- 8001824:	2212      	movs	r2, #18
+	HAL_SPI_Receive_IT(&hspi2, &in_buffer[0], 17);
+ 8001824:	2211      	movs	r2, #17
  8001826:	4933      	ldr	r1, [pc, #204]	; (80018f4 <main+0xf4>)
  8001828:	4833      	ldr	r0, [pc, #204]	; (80018f8 <main+0xf8>)
  800182a:	f001 ff3b 	bl	80036a4 <HAL_SPI_Receive_IT>
@@ -2634,8 +2634,8 @@ int main(void) {
  80018da:	490f      	ldr	r1, [pc, #60]	; (8001918 <main+0x118>)
  80018dc:	4806      	ldr	r0, [pc, #24]	; (80018f8 <main+0xf8>)
  80018de:	f001 fda5 	bl	800342c <HAL_SPI_Transmit>
-			HAL_SPI_Receive_IT(&hspi2, &in_buffer[0], 18);
- 80018e2:	2212      	movs	r2, #18
+			HAL_SPI_Receive_IT(&hspi2, &in_buffer[0], 17);
+ 80018e2:	2211      	movs	r2, #17
  80018e4:	4903      	ldr	r1, [pc, #12]	; (80018f4 <main+0xf4>)
  80018e6:	4804      	ldr	r0, [pc, #16]	; (80018f8 <main+0xf8>)
  80018e8:	f001 fedc 	bl	80036a4 <HAL_SPI_Receive_IT>

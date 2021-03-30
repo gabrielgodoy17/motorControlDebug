@@ -56,7 +56,7 @@ uint8_t byte;
 //uint8_t byte,
 uint8_t indRx = 0, flagRx, imprimir = 1, sentido;
 char buffer[MAX_BUFFER];
-uint8_t in_buffer[18];
+uint8_t in_buffer[17];
 
 int questionFlag = 0; // 0 = false ; 1 = true
 int contOUFlow = 0, pulsosAnt = 0, pulsosAct = 0;
@@ -443,7 +443,7 @@ void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi) {
 void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi) {
 	num_spi = num_spi + 10;
 	if (hspi->Instance == SPI2) {
-		for (int i = 0; i < 18; i++) {
+		for (int i = 0; i < 17; i++) {
 			switch (in_buffer[i]) {
 			case ':': //Comienzo de la trama
 				flagRx = 1;
@@ -522,7 +522,7 @@ int main(void) {
 	/* USER CODE BEGIN 2 */
 
 	//HAL_UART_Receive_IT(&huart2, &byte, 1);
-	HAL_SPI_Receive_IT(&hspi2, &in_buffer[0], 18);
+	HAL_SPI_Receive_IT(&hspi2, &in_buffer[0], 17);
 
 	HAL_TIM_Base_Start_IT(&htim1);
 	HAL_TIM_OC_Start_IT(&htim1, TIM_CHANNEL_1);
@@ -564,7 +564,7 @@ int main(void) {
 
 		if(questionFlag){
 			HAL_SPI_Transmit(&hspi2, &out_buffer[0], 14, 100);
-			HAL_SPI_Receive_IT(&hspi2, &in_buffer[0], 18);
+			HAL_SPI_Receive_IT(&hspi2, &in_buffer[0], 17);
 			questionFlag = 0;
 		}
 		/* USER CODE END WHILE */

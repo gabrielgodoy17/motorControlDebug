@@ -110,7 +110,7 @@ errno               0x4               /opt/st/stm32cubeide_1.5.0/plugins/com.st.
 sentido             0x1               Core/Src/main.o
 uwTick              0x4               Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
 pFlash              0x20              Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.o
-in_buffer           0x12              Core/Src/main.o
+in_buffer           0x11              Core/Src/main.o
 flagRx              0x1               Core/Src/main.o
 htim3               0x48              Core/Src/main.o
 resp_speed          0x1               Core/Src/main.o
@@ -3450,7 +3450,7 @@ LOAD /opt/st/stm32cubeide_1.5.0/plugins/com.st.stm32cube.ide.mcu.externaltools.g
                 0x0000000020000374                htim4
                 0x00000000200003bc                sentido
                 0x00000000200003c0                in_buffer
-                0x00000000200003d2                flagRx
+                0x00000000200003d1                flagRx
                 0x00000000200003d4                htim3
                 0x000000002000041c                resp_speed
                 0x0000000020000420                buffer
