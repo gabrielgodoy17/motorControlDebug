@@ -56,14 +56,14 @@ uint8_t byte;
 //uint8_t byte,
 uint8_t indRx = 0, flagRx, imprimir = 1, sentido;
 char buffer[MAX_BUFFER];
-uint8_t in_buffer[17];
+uint8_t in_buffer[18];
 
-int questionFlag=0// 0 = false ; 1 = true
+int questionFlag = 0; // 0 = false ; 1 = true
 int contOUFlow = 0, pulsosAnt = 0, pulsosAct = 0;
 int contOUFlow2 = 0, pulsosAnt2 = 0, pulsosAct2 = 0;
 double velocidadPulsos = 0, velocidadRPM = 0, deltaT = 0.01;
 double velocidadPulsos2 = 0, velocidadRPM2 = 0;
-double speedTest=29.98;
+double speedTest = 29.98;
 int num_spi = 0;
 int indexBuf = 0;
 uint8_t out_buffer[14] = { ':', 'w', '1', '-', '2', '5', ';', ':', 'w', '2',
@@ -152,26 +152,7 @@ void interpreteComando() {
 	switch (buffer[0]) {
 	case 'q':
 	case 'Q':
-		switch (buffer[1]) {
-		/*codigo ascii de '1' = 49*/
-		case 49:
-			// codigo ascii --> 83 = 'S' / 115 = 's'
-			if (buffer[2] == 83 || buffer[2] == 115) {
-				HAL_SPI_Transmit(&hspi2, getSign(1), 1, 100);
-			} else if (buffer[2] == 87 || buffer[2] == 119) {
-				HAL_SPI_Transmit(&hspi2, getSpeed(1), 1, 100);
-			}
-			break;
-			/*codigo ascii de '2' = 50*/
-		case 50:
-			// codigo ascii --> 83 = 'S' / 115 = 's'
-			if (buffer[2] == 83 || buffer[2] == 115) {
-				HAL_SPI_Transmit(&hspi2, getSign(2), 1, 100);
-			} else if (buffer[2] == 87 || buffer[2] == 119) {
-				HAL_SPI_Transmit(&hspi2, getSpeed(2), 1, 100);
-			}
-			break;
-		}
+		questionFlag = 1;
 		break;
 	case 'W':
 	case 'w':
@@ -270,7 +251,7 @@ void interpreteComando() {
 //			for (int i = 0; i < 6; i++) {
 //					HAL_SPI_Transmit(&hspi2, &out_buffer[i], 1, 100);//, &_data[i], 1, 100);
 //				}
-			questionFlag=1;
+			questionFlag = 1;
 			break;
 		}
 		break;
@@ -462,45 +443,46 @@ void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi) {
 void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi) {
 	num_spi = num_spi + 10;
 	if (hspi->Instance == SPI2) {
-		switch (byte) {
-		case ':': //Comienzo de la trama
-			flagRx = 1;
-			indRx = 0;
-//
-//				  interpreteComando(&in_buffer[1]);//Consigna motor 1
-//				  interpreteComando(&in_buffer[8]);//Consigna motor 2
-			//interpreteComando(&in_buffer[15]); //Consulta velocidades
-			break;
-		case '\r': //Retorno, fin de trama.
-		case ';':  //Fin de trama.
-			if (flagRx) {
-				flagRx = 0;
-				buffer[indRx] = 0;
-				interpreteComando();
-			}
-			break;
-		case 8: //Retroceso es permitido de esta manera.
-			if (flagRx) {
-				if (indRx > 0) {
-					indRx--;
+		for (int i = 0; i < 18; i++) {
+			switch (in_buffer[i]) {
+			case ':': //Comienzo de la trama
+				flagRx = 1;
+				indRx = 0;
+				break;
+			case '\r': //Retorno, fin de trama.
+			case ';':  //Fin de trama.
+				if (flagRx) {
+					flagRx = 0;
+					buffer[indRx] = 0;
+					interpreteComando();
 				}
-			}
-			break;
-		default: //Almacenamiento de la trama.
-			if (flagRx) {
-				buffer[indRx] = byte;
-				if (indRx < MAX_BUFFER - 1) {
-					indRx++;
+				break;
+			case 8: //Retroceso es permitido de esta manera.
+				if (flagRx) {
+					if (indRx > 0) {
+						indRx--;
+					}
 				}
+				break;
+			default: //Almacenamiento de la trama.
+				if (flagRx) {
+					buffer[indRx] = byte;
+					if (indRx < MAX_BUFFER - 1) {
+						indRx++;
+					}
 
+				}
+				break;
 			}
-			break;
 		}
-		indexBuf++;
+
 		/* Receive one byte in interrupt mode */
 		//HAL_SPI_TransmitReceive_IT(&hspi2, &out_buffer[indexBuf], &byte, 1);
 //		  HAL_SPI_Receive_IT(&hspi2, &byte, 1);
-		HAL_SPI_Receive_IT(&hspi2, &byte, 1);
+		if (questionFlag == 0) {
+			HAL_SPI_Receive_IT(&hspi2, &in_buffer[0], 18);
+		}
+
 	}
 }
 /* USER CODE END 0 */
@@ -540,7 +522,7 @@ int main(void) {
 	/* USER CODE BEGIN 2 */
 
 	//HAL_UART_Receive_IT(&huart2, &byte, 1);
-	HAL_SPI_Receive_IT(&hspi2, &byte, 1);
+	HAL_SPI_Receive_IT(&hspi2, &in_buffer[0], 18);
 
 	HAL_TIM_Base_Start_IT(&htim1);
 	HAL_TIM_OC_Start_IT(&htim1, TIM_CHANNEL_1);
@@ -579,6 +561,12 @@ int main(void) {
 		HAL_Delay(100);
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, 0);
 		HAL_Delay(100);
+
+		if(questionFlag){
+			HAL_SPI_Transmit(&hspi2, &out_buffer[0], 14, 100);
+			HAL_SPI_Receive_IT(&hspi2, &in_buffer[0], 18);
+			questionFlag = 0;
+		}
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
