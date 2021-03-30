@@ -28,34 +28,34 @@ endif
 
 -include ../makefile.defs
 
-BUILD_ARTIFACT_NAME := controlMotor
+BUILD_ARTIFACT_NAME := motorControlDebug
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX := 
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME).$(BUILD_ARTIFACT_EXTENSION)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-controlMotor.elf \
+motorControlDebug.elf \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-controlMotor.list \
+motorControlDebug.list \
 
 OBJCOPY_BIN += \
-controlMotor.bin \
+motorControlDebug.bin \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: controlMotor.elf secondary-outputs
+main-build: motorControlDebug.elf secondary-outputs
 
 # Tool invocations
-controlMotor.elf: $(OBJS) $(USER_OBJS) /home/gabriel/STM32CubeIDE/workspace_new/controlMotor/STM32F103C8TX_FLASH.ld
-	arm-none-eabi-gcc -o "controlMotor.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/gabriel/STM32CubeIDE/workspace_new/controlMotor/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="controlMotor.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+motorControlDebug.elf: $(OBJS) $(USER_OBJS) /home/gabriel/STM32CubeIDE/workspace_slave/motorControlDebug/STM32F103C8TX_FLASH.ld
+	arm-none-eabi-gcc -o "motorControlDebug.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/gabriel/STM32CubeIDE/workspace_slave/motorControlDebug/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="motorControlDebug.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -64,13 +64,13 @@ default.size.stdout: $(EXECUTABLES)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-controlMotor.list: $(EXECUTABLES)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "controlMotor.list"
+motorControlDebug.list: $(EXECUTABLES)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "motorControlDebug.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-controlMotor.bin: $(EXECUTABLES)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "controlMotor.bin"
+motorControlDebug.bin: $(EXECUTABLES)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "motorControlDebug.bin"
 	@echo 'Finished building: $@'
 	@echo ' '
 
