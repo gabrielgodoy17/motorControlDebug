@@ -2311,23 +2311,23 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi) {
  80016f4:	af00      	add	r7, sp, #0
  80016f6:	6078      	str	r0, [r7, #4]
 	num_spi = num_spi + 10;
- 80016f8:	4b38      	ldr	r3, [pc, #224]	; (80017dc <HAL_SPI_RxCpltCallback+0xec>)
+ 80016f8:	4b39      	ldr	r3, [pc, #228]	; (80017e0 <HAL_SPI_RxCpltCallback+0xf0>)
  80016fa:	681b      	ldr	r3, [r3, #0]
  80016fc:	330a      	adds	r3, #10
- 80016fe:	4a37      	ldr	r2, [pc, #220]	; (80017dc <HAL_SPI_RxCpltCallback+0xec>)
+ 80016fe:	4a38      	ldr	r2, [pc, #224]	; (80017e0 <HAL_SPI_RxCpltCallback+0xf0>)
  8001700:	6013      	str	r3, [r2, #0]
 	if (hspi->Instance == SPI2) {
  8001702:	687b      	ldr	r3, [r7, #4]
  8001704:	681b      	ldr	r3, [r3, #0]
- 8001706:	4a36      	ldr	r2, [pc, #216]	; (80017e0 <HAL_SPI_RxCpltCallback+0xf0>)
+ 8001706:	4a37      	ldr	r2, [pc, #220]	; (80017e4 <HAL_SPI_RxCpltCallback+0xf4>)
  8001708:	4293      	cmp	r3, r2
- 800170a:	d162      	bne.n	80017d2 <HAL_SPI_RxCpltCallback+0xe2>
+ 800170a:	d164      	bne.n	80017d6 <HAL_SPI_RxCpltCallback+0xe6>
 		for (int i = 0; i < 17; i++) {
  800170c:	2300      	movs	r3, #0
  800170e:	60fb      	str	r3, [r7, #12]
- 8001710:	e053      	b.n	80017ba <HAL_SPI_RxCpltCallback+0xca>
+ 8001710:	e055      	b.n	80017be <HAL_SPI_RxCpltCallback+0xce>
 			switch (in_buffer[i]) {
- 8001712:	4a34      	ldr	r2, [pc, #208]	; (80017e4 <HAL_SPI_RxCpltCallback+0xf4>)
+ 8001712:	4a35      	ldr	r2, [pc, #212]	; (80017e8 <HAL_SPI_RxCpltCallback+0xf8>)
  8001714:	68fb      	ldr	r3, [r7, #12]
  8001716:	4413      	add	r3, r2
  8001718:	781b      	ldrb	r3, [r3, #0]
@@ -2345,137 +2345,138 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi) {
  8001730:	e025      	b.n	800177e <HAL_SPI_RxCpltCallback+0x8e>
 			case ':': //Comienzo de la trama
 				flagRx = 1;
- 8001732:	4b2d      	ldr	r3, [pc, #180]	; (80017e8 <HAL_SPI_RxCpltCallback+0xf8>)
+ 8001732:	4b2e      	ldr	r3, [pc, #184]	; (80017ec <HAL_SPI_RxCpltCallback+0xfc>)
  8001734:	2201      	movs	r2, #1
  8001736:	701a      	strb	r2, [r3, #0]
 				indRx = 0;
- 8001738:	4b2c      	ldr	r3, [pc, #176]	; (80017ec <HAL_SPI_RxCpltCallback+0xfc>)
+ 8001738:	4b2d      	ldr	r3, [pc, #180]	; (80017f0 <HAL_SPI_RxCpltCallback+0x100>)
  800173a:	2200      	movs	r2, #0
  800173c:	701a      	strb	r2, [r3, #0]
 				break;
- 800173e:	e039      	b.n	80017b4 <HAL_SPI_RxCpltCallback+0xc4>
+ 800173e:	e03b      	b.n	80017b8 <HAL_SPI_RxCpltCallback+0xc8>
 			case '\r': //Retorno, fin de trama.
 			case ';':  //Fin de trama.
 				if (flagRx) {
- 8001740:	4b29      	ldr	r3, [pc, #164]	; (80017e8 <HAL_SPI_RxCpltCallback+0xf8>)
+ 8001740:	4b2a      	ldr	r3, [pc, #168]	; (80017ec <HAL_SPI_RxCpltCallback+0xfc>)
  8001742:	781b      	ldrb	r3, [r3, #0]
  8001744:	2b00      	cmp	r3, #0
- 8001746:	d030      	beq.n	80017aa <HAL_SPI_RxCpltCallback+0xba>
+ 8001746:	d032      	beq.n	80017ae <HAL_SPI_RxCpltCallback+0xbe>
 					flagRx = 0;
- 8001748:	4b27      	ldr	r3, [pc, #156]	; (80017e8 <HAL_SPI_RxCpltCallback+0xf8>)
+ 8001748:	4b28      	ldr	r3, [pc, #160]	; (80017ec <HAL_SPI_RxCpltCallback+0xfc>)
  800174a:	2200      	movs	r2, #0
  800174c:	701a      	strb	r2, [r3, #0]
 					buffer[indRx] = 0;
- 800174e:	4b27      	ldr	r3, [pc, #156]	; (80017ec <HAL_SPI_RxCpltCallback+0xfc>)
+ 800174e:	4b28      	ldr	r3, [pc, #160]	; (80017f0 <HAL_SPI_RxCpltCallback+0x100>)
  8001750:	781b      	ldrb	r3, [r3, #0]
  8001752:	461a      	mov	r2, r3
- 8001754:	4b26      	ldr	r3, [pc, #152]	; (80017f0 <HAL_SPI_RxCpltCallback+0x100>)
+ 8001754:	4b27      	ldr	r3, [pc, #156]	; (80017f4 <HAL_SPI_RxCpltCallback+0x104>)
  8001756:	2100      	movs	r1, #0
  8001758:	5499      	strb	r1, [r3, r2]
 					interpreteComando();
  800175a:	f7ff f9ef 	bl	8000b3c <interpreteComando>
 				}
 				break;
- 800175e:	e024      	b.n	80017aa <HAL_SPI_RxCpltCallback+0xba>
+ 800175e:	e026      	b.n	80017ae <HAL_SPI_RxCpltCallback+0xbe>
 			case 8: //Retroceso es permitido de esta manera.
 				if (flagRx) {
- 8001760:	4b21      	ldr	r3, [pc, #132]	; (80017e8 <HAL_SPI_RxCpltCallback+0xf8>)
+ 8001760:	4b22      	ldr	r3, [pc, #136]	; (80017ec <HAL_SPI_RxCpltCallback+0xfc>)
  8001762:	781b      	ldrb	r3, [r3, #0]
  8001764:	2b00      	cmp	r3, #0
- 8001766:	d022      	beq.n	80017ae <HAL_SPI_RxCpltCallback+0xbe>
+ 8001766:	d024      	beq.n	80017b2 <HAL_SPI_RxCpltCallback+0xc2>
 					if (indRx > 0) {
- 8001768:	4b20      	ldr	r3, [pc, #128]	; (80017ec <HAL_SPI_RxCpltCallback+0xfc>)
+ 8001768:	4b21      	ldr	r3, [pc, #132]	; (80017f0 <HAL_SPI_RxCpltCallback+0x100>)
  800176a:	781b      	ldrb	r3, [r3, #0]
  800176c:	2b00      	cmp	r3, #0
- 800176e:	d01e      	beq.n	80017ae <HAL_SPI_RxCpltCallback+0xbe>
+ 800176e:	d020      	beq.n	80017b2 <HAL_SPI_RxCpltCallback+0xc2>
 						indRx--;
- 8001770:	4b1e      	ldr	r3, [pc, #120]	; (80017ec <HAL_SPI_RxCpltCallback+0xfc>)
+ 8001770:	4b1f      	ldr	r3, [pc, #124]	; (80017f0 <HAL_SPI_RxCpltCallback+0x100>)
  8001772:	781b      	ldrb	r3, [r3, #0]
  8001774:	3b01      	subs	r3, #1
  8001776:	b2da      	uxtb	r2, r3
- 8001778:	4b1c      	ldr	r3, [pc, #112]	; (80017ec <HAL_SPI_RxCpltCallback+0xfc>)
+ 8001778:	4b1d      	ldr	r3, [pc, #116]	; (80017f0 <HAL_SPI_RxCpltCallback+0x100>)
  800177a:	701a      	strb	r2, [r3, #0]
 					}
 				}
 				break;
- 800177c:	e017      	b.n	80017ae <HAL_SPI_RxCpltCallback+0xbe>
+ 800177c:	e019      	b.n	80017b2 <HAL_SPI_RxCpltCallback+0xc2>
 			default: //Almacenamiento de la trama.
 				if (flagRx) {
- 800177e:	4b1a      	ldr	r3, [pc, #104]	; (80017e8 <HAL_SPI_RxCpltCallback+0xf8>)
+ 800177e:	4b1b      	ldr	r3, [pc, #108]	; (80017ec <HAL_SPI_RxCpltCallback+0xfc>)
  8001780:	781b      	ldrb	r3, [r3, #0]
  8001782:	2b00      	cmp	r3, #0
- 8001784:	d015      	beq.n	80017b2 <HAL_SPI_RxCpltCallback+0xc2>
-					buffer[indRx] = byte;
- 8001786:	4b19      	ldr	r3, [pc, #100]	; (80017ec <HAL_SPI_RxCpltCallback+0xfc>)
+ 8001784:	d017      	beq.n	80017b6 <HAL_SPI_RxCpltCallback+0xc6>
+					buffer[indRx] = in_buffer[i];
+ 8001786:	4b1a      	ldr	r3, [pc, #104]	; (80017f0 <HAL_SPI_RxCpltCallback+0x100>)
  8001788:	781b      	ldrb	r3, [r3, #0]
- 800178a:	461a      	mov	r2, r3
- 800178c:	4b19      	ldr	r3, [pc, #100]	; (80017f4 <HAL_SPI_RxCpltCallback+0x104>)
- 800178e:	7819      	ldrb	r1, [r3, #0]
- 8001790:	4b17      	ldr	r3, [pc, #92]	; (80017f0 <HAL_SPI_RxCpltCallback+0x100>)
- 8001792:	5499      	strb	r1, [r3, r2]
+ 800178a:	4619      	mov	r1, r3
+ 800178c:	4a16      	ldr	r2, [pc, #88]	; (80017e8 <HAL_SPI_RxCpltCallback+0xf8>)
+ 800178e:	68fb      	ldr	r3, [r7, #12]
+ 8001790:	4413      	add	r3, r2
+ 8001792:	781a      	ldrb	r2, [r3, #0]
+ 8001794:	4b17      	ldr	r3, [pc, #92]	; (80017f4 <HAL_SPI_RxCpltCallback+0x104>)
+ 8001796:	545a      	strb	r2, [r3, r1]
 					if (indRx < MAX_BUFFER - 1) {
- 8001794:	4b15      	ldr	r3, [pc, #84]	; (80017ec <HAL_SPI_RxCpltCallback+0xfc>)
- 8001796:	781b      	ldrb	r3, [r3, #0]
- 8001798:	2b26      	cmp	r3, #38	; 0x26
- 800179a:	d80a      	bhi.n	80017b2 <HAL_SPI_RxCpltCallback+0xc2>
+ 8001798:	4b15      	ldr	r3, [pc, #84]	; (80017f0 <HAL_SPI_RxCpltCallback+0x100>)
+ 800179a:	781b      	ldrb	r3, [r3, #0]
+ 800179c:	2b26      	cmp	r3, #38	; 0x26
+ 800179e:	d80a      	bhi.n	80017b6 <HAL_SPI_RxCpltCallback+0xc6>
 						indRx++;
- 800179c:	4b13      	ldr	r3, [pc, #76]	; (80017ec <HAL_SPI_RxCpltCallback+0xfc>)
- 800179e:	781b      	ldrb	r3, [r3, #0]
- 80017a0:	3301      	adds	r3, #1
- 80017a2:	b2da      	uxtb	r2, r3
- 80017a4:	4b11      	ldr	r3, [pc, #68]	; (80017ec <HAL_SPI_RxCpltCallback+0xfc>)
- 80017a6:	701a      	strb	r2, [r3, #0]
+ 80017a0:	4b13      	ldr	r3, [pc, #76]	; (80017f0 <HAL_SPI_RxCpltCallback+0x100>)
+ 80017a2:	781b      	ldrb	r3, [r3, #0]
+ 80017a4:	3301      	adds	r3, #1
+ 80017a6:	b2da      	uxtb	r2, r3
+ 80017a8:	4b11      	ldr	r3, [pc, #68]	; (80017f0 <HAL_SPI_RxCpltCallback+0x100>)
+ 80017aa:	701a      	strb	r2, [r3, #0]
 					}
 
 				}
 				break;
- 80017a8:	e003      	b.n	80017b2 <HAL_SPI_RxCpltCallback+0xc2>
-				break;
- 80017aa:	bf00      	nop
- 80017ac:	e002      	b.n	80017b4 <HAL_SPI_RxCpltCallback+0xc4>
+ 80017ac:	e003      	b.n	80017b6 <HAL_SPI_RxCpltCallback+0xc6>
 				break;
  80017ae:	bf00      	nop
- 80017b0:	e000      	b.n	80017b4 <HAL_SPI_RxCpltCallback+0xc4>
+ 80017b0:	e002      	b.n	80017b8 <HAL_SPI_RxCpltCallback+0xc8>
 				break;
  80017b2:	bf00      	nop
+ 80017b4:	e000      	b.n	80017b8 <HAL_SPI_RxCpltCallback+0xc8>
+				break;
+ 80017b6:	bf00      	nop
 		for (int i = 0; i < 17; i++) {
- 80017b4:	68fb      	ldr	r3, [r7, #12]
- 80017b6:	3301      	adds	r3, #1
- 80017b8:	60fb      	str	r3, [r7, #12]
- 80017ba:	68fb      	ldr	r3, [r7, #12]
- 80017bc:	2b10      	cmp	r3, #16
- 80017be:	dda8      	ble.n	8001712 <HAL_SPI_RxCpltCallback+0x22>
+ 80017b8:	68fb      	ldr	r3, [r7, #12]
+ 80017ba:	3301      	adds	r3, #1
+ 80017bc:	60fb      	str	r3, [r7, #12]
+ 80017be:	68fb      	ldr	r3, [r7, #12]
+ 80017c0:	2b10      	cmp	r3, #16
+ 80017c2:	dda6      	ble.n	8001712 <HAL_SPI_RxCpltCallback+0x22>
 		}
 
 		/* Receive one byte in interrupt mode */
 		//HAL_SPI_TransmitReceive_IT(&hspi2, &out_buffer[indexBuf], &byte, 1);
 //		  HAL_SPI_Receive_IT(&hspi2, &byte, 1);
 		if (questionFlag == 0) {
- 80017c0:	4b0d      	ldr	r3, [pc, #52]	; (80017f8 <HAL_SPI_RxCpltCallback+0x108>)
- 80017c2:	681b      	ldr	r3, [r3, #0]
- 80017c4:	2b00      	cmp	r3, #0
- 80017c6:	d104      	bne.n	80017d2 <HAL_SPI_RxCpltCallback+0xe2>
-			HAL_SPI_Receive_IT(&hspi2, &in_buffer[0], 18);
- 80017c8:	2212      	movs	r2, #18
- 80017ca:	4906      	ldr	r1, [pc, #24]	; (80017e4 <HAL_SPI_RxCpltCallback+0xf4>)
- 80017cc:	480b      	ldr	r0, [pc, #44]	; (80017fc <HAL_SPI_RxCpltCallback+0x10c>)
- 80017ce:	f001 ff69 	bl	80036a4 <HAL_SPI_Receive_IT>
+ 80017c4:	4b0c      	ldr	r3, [pc, #48]	; (80017f8 <HAL_SPI_RxCpltCallback+0x108>)
+ 80017c6:	681b      	ldr	r3, [r3, #0]
+ 80017c8:	2b00      	cmp	r3, #0
+ 80017ca:	d104      	bne.n	80017d6 <HAL_SPI_RxCpltCallback+0xe6>
+			HAL_SPI_Receive_IT(&hspi2, &in_buffer[0], 17);
+ 80017cc:	2211      	movs	r2, #17
+ 80017ce:	4906      	ldr	r1, [pc, #24]	; (80017e8 <HAL_SPI_RxCpltCallback+0xf8>)
+ 80017d0:	480a      	ldr	r0, [pc, #40]	; (80017fc <HAL_SPI_RxCpltCallback+0x10c>)
+ 80017d2:	f001 ff67 	bl	80036a4 <HAL_SPI_Receive_IT>
 		}
 
 	}
 }
- 80017d2:	bf00      	nop
- 80017d4:	3710      	adds	r7, #16
- 80017d6:	46bd      	mov	sp, r7
- 80017d8:	bd80      	pop	{r7, pc}
- 80017da:	bf00      	nop
- 80017dc:	20000290 	.word	0x20000290
- 80017e0:	40003800 	.word	0x40003800
- 80017e4:	200003c0 	.word	0x200003c0
- 80017e8:	200003d1 	.word	0x200003d1
- 80017ec:	2000024c 	.word	0x2000024c
- 80017f0:	20000420 	.word	0x20000420
- 80017f4:	20000448 	.word	0x20000448
+ 80017d6:	bf00      	nop
+ 80017d8:	3710      	adds	r7, #16
+ 80017da:	46bd      	mov	sp, r7
+ 80017dc:	bd80      	pop	{r7, pc}
+ 80017de:	bf00      	nop
+ 80017e0:	20000290 	.word	0x20000290
+ 80017e4:	40003800 	.word	0x40003800
+ 80017e8:	200003c0 	.word	0x200003c0
+ 80017ec:	200003d1 	.word	0x200003d1
+ 80017f0:	2000024c 	.word	0x2000024c
+ 80017f4:	20000420 	.word	0x20000420
  80017f8:	20000250 	.word	0x20000250
  80017fc:	2000031c 	.word	0x2000031c
 
@@ -2622,18 +2623,22 @@ int main(void) {
 		HAL_Delay(100);
  80018c8:	2064      	movs	r0, #100	; 0x64
  80018ca:	f000 fe29 	bl	8002520 <HAL_Delay>
-
+		//HAL_SPI_Receive_IT(&hspi2, &in_buffer[0], 17);
 		if(questionFlag){
  80018ce:	4b11      	ldr	r3, [pc, #68]	; (8001914 <main+0x114>)
  80018d0:	681b      	ldr	r3, [r3, #0]
  80018d2:	2b00      	cmp	r3, #0
  80018d4:	d0e9      	beq.n	80018aa <main+0xaa>
+			//HAL_NVIC_DisableIRQ(SPI2_IRQn);
+			//__HAL_SPI_DISABLE_IT(&hspi2, SPI_IT_RXNE);
 			HAL_SPI_Transmit(&hspi2, &out_buffer[0], 14, 100);
  80018d6:	2364      	movs	r3, #100	; 0x64
  80018d8:	220e      	movs	r2, #14
  80018da:	490f      	ldr	r1, [pc, #60]	; (8001918 <main+0x118>)
  80018dc:	4806      	ldr	r0, [pc, #24]	; (80018f8 <main+0xf8>)
  80018de:	f001 fda5 	bl	800342c <HAL_SPI_Transmit>
+			//HAL_NVIC_EnableIRQ(SPI2_IRQn);
+			//__HAL_SPI_ENABLE_IT(&hspi2, SPI_IT_RXNE);
 			HAL_SPI_Receive_IT(&hspi2, &in_buffer[0], 17);
  80018e2:	2211      	movs	r2, #17
  80018e4:	4903      	ldr	r1, [pc, #12]	; (80018f4 <main+0xf4>)
